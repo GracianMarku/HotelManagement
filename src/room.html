@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./output.css" rel="stylesheet" />
+    <script src="./js/room.js?v=3" defer></script>
+</head>
+<body>
+    
+    <!-- Sidebar -->
+
+    <aside class="w-64 h-screen bg-[#0b0b3b] text-white flex flex-col justify-between fixed">
+
+        <div>
+            <h1 class="text-2x1 font-bold text-center py-6 border-b border-gray-600">Hotel Admin</h1>
+
+            <nav class="mt-6 flex flex-col gap-10 px-4 ">
+                <a href="./dashboard.html" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg shadow-md">Dashboard</a>
+                <a href="./room.html" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg transition-colors duration-200">Rooms</a>
+                <a href="./reservation.php" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg">Reservations</a>
+                <a href="./customer.php" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg">Customers</a>
+                <a href="./payment.php" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg">Payments</a>
+                <a href="#" class="text-gray-200 font-bold hover:bg-indigo-900 px-4 py-2 rounded-lg">Staff</a>
+
+            </nav>
+        </div>
+
+
+        <!-- Logout -->
+
+        <div class="px-4 mb-4">
+            <button class="w-full bg-red-700 hover:bg-red-800 py-2 rounded-lg font-semibold">Logout</button>
+        </div>
+
+    </aside>
+
+
+    
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+  <!-- <main class="flex p-10 ml-64 gap-10 items-start">
+
+        <div class="w-80 bg-gray-200 p-6 rounded-xl shadow h-fit sticky top-10 self-start ">
+            <h2 class="text-xl font-semibold mb-4">Create Room</h2>
+
+            <label class="block mt-3 font-medium">Room number: </label>
+            <input type="number" id="roomNumber" class="w-full p-2 rounded border">
+
+            <label class="block mt-3 font-medium">Double bed:</label>
+            <input type="number" id="doubleBed" class="w-full p-2 rounded border">
+
+            <label class="block mt-3 font-medium">Single bed:</label>
+            <input type="number" id="singleBed" class="w-full p-2 rounded border">
+
+            <label class="block mt-3 font-medium">Price per night:</label>
+            <input type="number" id="price" class="w-full p-2 rounded border">
+
+            <label class="block mt-3 font-medium">Category:</label>
+            <input type="text" id="category" class="w-full p-2 rounded border">
+
+            <label class="block mt-3 font-medium">Status:</label>
+            <select id="status" class="w-full p-2 rounded border">
+                <option value="Available">Available</option>
+                <option value="Occupied">Occupied</option>
+                <option value="Reserved">Reserved</option>
+            </select>
+
+            <div class="flex gap-3 mt-5">
+                <button onclick="createRoom()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Create Room</button>
+            </div>
+        </div>
+
+        <div class="flex-1">
+            <div id="roomList" class="grid grid-cols-3 gap-6">
+          
+            </div>
+        </div>
+    </main>  -->
+
+    <!-- ---------------------------------------------- -->
+
+<form 
+  action="./php/create_room.php" 
+  method="POST"
+  class="bg-white p-6 rounded-xl shadow space-y-4 w-96 ml-64">
+
+  <div>
+    <label class="block font-medium">Room Number</label>
+    <input type="text" name="room_number" required
+      class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="block font-medium text-red-500">Double Beds</label>
+    <input type="number" name="double_bed"  required
+      class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="block font-medium">Single Beds</label>
+    <input type="number" name="single_bed"  required
+      class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="block font-medium">Price</label>
+    <input type="number" name="price"  required
+      class="w-full border p-2 rounded">
+  </div>
+
+  <div>
+    <label class="block font-medium">Category</label>
+    <input type="text" name="category" required
+      class="w-full border p-2 rounded">
+  </div>
+
+  <!-- ❌ Nuk ka status -->
+  <!-- status vendoset nga PHP -->
+
+  <button
+    type="submit"
+    class="bg-blue-600 text-white px-4 py-2 rounded">
+    Create Room
+  </button>
+</form>
+
+
+<div class="grid grid-cols-3 gap-4 mt-10">
+  <?php include "./php/get_rooms.php"; ?>
+</div>
+
+
+
+
+
+    <!-- Modal Edit Room -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
+    <div class="bg-white p-6 w-96 rounded-xl shadow-xl">
+        <h2 class="text-xl font-semibold mb-4">Edit Room</h2>
+
+        <input type="hidden" id="editId">
+
+        <label class="block mt-2 font-medium">Room number:</label>
+        <input id="editRoomNumber" class="w-full p-2 border rounded">
+
+        <label class="block mt-2 font-medium">Double bed:</label>
+        <input id="editDoubleBed" class="w-full p-2 border rounded">
+
+        <label class="block mt-2 font-medium">Single bed:</label>
+        <input id="editSingleBed" class="w-full p-2 border rounded">
+
+        <label class="block mt-2 font-medium">Price:</label>
+        <input id="editPrice" class="w-full p-2 border rounded">
+
+        <label class="block mt-2 font-medium">Category:</label>
+        <input id="editCategory" class="w-full p-2 border rounded">
+
+        <label class="block mt-2 font-medium">Status:</label>
+        <select id="editStatus" class="w-full p-2 border rounded">
+            <option value="Available">Available</option>
+            <option value="Occupied">Occupied</option>
+            <option value="Reserved">Reserved</option>
+        </select>
+
+        <div class="flex justify-end gap-4 mt-5">
+            <button onclick="closeEditModal()" 
+                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+
+            <button onclick="updateRoom()" 
+                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                Save Changes
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
